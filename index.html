@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday Samasemoooo 🎁</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: linear-gradient(135deg, #3e1f47, #1f2a57);
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    h1, h2 {
+      font-family: 'Great Vibes', cursive;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: 0;
+      color: red;
+      font-size: 30px;
+      animation: floatUp 6s linear infinite;
+      z-index: 40;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .highlight-name {
+      background: linear-gradient(to right, #ff6ec4, #7873f5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .counter-box {
+      animation: fadeInUp 1s ease forwards;
+      perspective: 1000px;
+    }
+
+    .flip-unit {
+      background-color: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 10px 16px;
+      transform: rotateX(0deg);
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="text-white px-4 py-10 overflow-y-auto min-h-screen flex flex-col items-center justify-start space-y-6">
+
+  <!-- Gift Box -->
+  <div id="giftBox" class="relative w-80 h-80 sm:w-96 sm:h-96 bg-white/90 backdrop-blur-md rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.4)] flex flex-col items-center justify-center transition-all duration-1000 ease-in-out space-y-4 p-4 text-center">
+    <div class="w-full h-12 bg-pink-600 rounded-t-3xl flex items-center justify-center text-white font-bold text-lg shadow">🎀 Happy Surprise</div>
+    <div class="text-5xl font-bold text-pink-600">🎁</div>
+    <p class="text-pink-500 font-semibold">Click to open your gift</p>
+    <button onclick="openGift()" class="mt-4 bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-2 rounded-full shadow-md">Open Gift</button>
+  </div>
+
+  <!-- Main Content -->
+  <div id="mainContent" class="hidden flex flex-col items-center justify-center text-center px-4 space-y-6">
+    <h1 class="text-4xl sm:text-6xl font-bold drop-shadow top-2">
+      🎉 Happy Birthday <span class="highlight-name">samasemoooo</span> 🎉
+    </h1>
+    <h2 class="text-2xl sm:text-3xl font-semibold">I love you <span class="highlight-name">samasemoooo</span> ❤️</h2>
+    <p class="max-w-xl text-lg sm:text-xl">
+     You are the light of my life and the beat of my heart. On your birthday, I want to remind you how much I love you. Next year you will be my wife. I love you so much 🎂💖
+    </p>
+
+    <!-- Countdown -->
+    <div id="countdown" class="counter-box flex gap-4 sm:gap-6 text-2xl sm:text-3xl font-bold text-white">
+      <div class="flip-unit text-center">
+        <div id="days">00</div>
+        <div class="text-sm mt-1">Days</div>
+      </div>
+      <div class="flip-unit text-center">
+        <div id="hours">00</div>
+        <div class="text-sm mt-1">Hours</div>
+      </div>
+      <div class="flip-unit text-center">
+        <div id="minutes">00</div>
+        <div class="text-sm mt-1">Minutes</div>
+      </div>
+      <div class="flip-unit text-center">
+        <div id="seconds">00</div>
+        <div class="text-sm mt-1">Seconds</div>
+      </div>
+    </div>
+
+    <div class="bg-white/10 backdrop-blur-sm p-4 rounded-2xl shadow-lg w-80 sm:w-[30rem]">
+      <h3 class="text-xl font-semibold text-pink-300 mb-4">❤️Alb Baba</h3>
+      <div id="gallery" class="w-full h-64 overflow-hidden rounded-xl flex items-center justify-center">
+        <img src="https://via.placeholder.com/400x300?text=Memory+1" class="max-h-full max-w-full object-contain gallery-img" />
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Music -->
+  <audio id="bgMusic" loop>
+    <source src="happy.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Music Toggle -->
+  <button style="top:-15px"id="musicToggle" onclick="toggleMusic()" class="fixed top-1 right-4 z-50 bg-pink-600 text-white px-4 py-2 rounded-full shadow-lg hidden">🔊 Music</button>
+
+  <script>
+    const giftBox = document.getElementById("giftBox");
+    const mainContent = document.getElementById("mainContent");
+    const music = document.getElementById("bgMusic");
+    const musicToggle = document.getElementById("musicToggle");
+    const gallery = document.getElementById("gallery");
+    let heartTimer;
+
+    const images = [
+      "imges/me1.jpg",
+      "imges/me2.jpg",
+      "imges/me3.jpg",
+      "imges/me4.jpg",
+      "imges/me5.jpg",
+      "imges/me6.jpg",
+      "imges/me7.jpg",
+      "imges/me8.jpg",
+      "imges/me9.jpg",
+      "imges/me10.jpg",
+      "imges/me11.jpg",
+      "imges/me12.jpg",
+      "imges/me13.jpg",
+      "imges/me14.jpg",
+      "imges/me15.jpg",
+    ];
+    let currentImage = 0;
+
+    function updateGallery() {
+      gallery.querySelector("img").src = images[currentImage];
+      currentImage = (currentImage + 1) % images.length;
+    }
+
+    setInterval(updateGallery, 4000);
+
+    function openGift() {
+      giftBox.classList.add("opacity-0", "scale-50");
+      setTimeout(() => {
+        giftBox.style.display = "none";
+        mainContent.classList.remove("hidden");
+        music.play();
+        musicToggle.classList.remove("hidden");
+        startHeartLoop();
+      }, 1000);
+    }
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        musicToggle.innerText = "🔊 Music";
+      } else {
+        music.pause();
+        musicToggle.innerText = "🔇 Music";
+      }
+    }
+
+    const birthday = new Date("2025-07-09T00:00:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = birthday - now;
+      if (diff <= 0) {
+        document.getElementById("countdown").textContent = "🎉 It's Time! Happy Birthday!";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      document.getElementById("days").textContent = days.toString().padStart(2, '0');
+      document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+      document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+      document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    function launchHearts() {
+      const interval = setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 2 + Math.random() * 2 + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }, 80);
+      return interval;
+    }
+
+    function startHeartLoop() {
+      let heartInterval = launchHearts();
+      heartTimer = setInterval(() => {
+        clearInterval(heartInterval);
+        setTimeout(() => {
+          heartInterval = launchHearts();
+        }, 30000);
+      }, 15000);
+    }
+  </script>
+</body>
+</html>     
